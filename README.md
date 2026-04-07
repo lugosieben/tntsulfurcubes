@@ -1,5 +1,5 @@
 # TNT Sulfur Cubes
-*Sulfur Cubes + TNT = Boom 💥*
+## If you enjoy, consider giving a star to support!
 
 ## What does this do?
 
