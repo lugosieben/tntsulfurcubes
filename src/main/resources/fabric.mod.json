@@ -1,0 +1,30 @@
+{
+	"schemaVersion": 1,
+	"id": "tntsulfurcubes",
+	"version": "${version}",
+	"name": "TNT Sulfur Cubes",
+	"description": "Sulfur Cubes explode with the power of TNT!",
+	"authors": [
+		"Lugo_Sieben"
+	],
+	"contact": {
+		"homepage": "https://modrinth.com/mod/tntsulfurcubes",
+		"sources": "https://github.com/lugosieben/tntsulfurcubes"
+	},
+	"license": "CC BY-NC-SA 4.0",
+	"icon": "assets/tntsulfurcubes/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"net.lugo.tntsulfurcubes.TNTSulfurCubes"
+		]
+	},
+	"mixins": [
+		"tntsulfurcubes.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=${loader_version}",
+		"minecraft": "${minecraft_version_compatible}",
+		"java": ">=${java_version}"
+	}
+}
