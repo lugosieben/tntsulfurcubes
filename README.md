@@ -9,5 +9,5 @@
 
 ## Download
 
-You can download the mod from [Modrinth](https://modrinth.com/mod/tnt-sulfur-cubes) or the [releases page](https://github.com/lugosieben/tntsulfurcubes/releases/latest).
+You can download the mod from [Modrinth](https://modrinth.com/mod/tnt-sulfur-cubes).
 Find it on CurseForge, once they add the snapshot versions: [CurseForge](https://www.curseforge.com/minecraft/mc-mods/tnt-sulfur-cubes)
