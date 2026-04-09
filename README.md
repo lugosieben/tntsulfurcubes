@@ -1,5 +1,5 @@
 # TNT Sulfur Cubes
-*Sulfur Cubes + TNT = Boom 💥*
+## If you enjoy, consider giving a star to support!
 
 ## What does this do?
 
@@ -7,7 +7,7 @@
 - You can light a TNT Sulfur Cube with Flint and Steel or a Fire Charge
 - The Sulfur Cube will behave like a normal TNT, but can be *yeeted* around as Sulfur Cubes do
 
-## [Download](https://github.com/lugosieben/tntsulfurcubes/releases/latest)
+## Download
 
-You can download the mod from the [releases page](https://github.com/lugosieben/tntsulfurcubes/releases/latest).
-Once approved on Modrinth, you can also find it there and support the mod by downloading: [TNT Sulfur Cubes on Modrinth](https://modrinth.com/mod/tntsulfurcubes).
+You can download the mod from [CurseForge](https://www.curseforge.com/minecraft/mc-mods/tnt-sulfur-cubes) or the [releases page](https://github.com/lugosieben/tntsulfurcubes/releases/latest).
+Once approved on Modrinth, you can also find it there: [TNT Sulfur Cubes on Modrinth](https://modrinth.com/mod/tnt-sulfur-cubes).
