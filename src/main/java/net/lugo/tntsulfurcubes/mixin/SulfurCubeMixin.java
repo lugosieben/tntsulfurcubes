@@ -2,9 +2,11 @@ package net.lugo.tntsulfurcubes.mixin;
 
 import net.lugo.tntsulfurcubes.Ignitable;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -14,6 +16,7 @@ import net.minecraft.world.entity.monster.cubemob.SulfurCube;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.gamerules.GameRules;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -80,6 +83,7 @@ public class SulfurCubeMixin implements Ignitable {
 	@Inject(at = @At("HEAD"), method = "mobInteract", cancellable = true)
 	private void mobInteract(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
 		SulfurCube sulfurCube = (SulfurCube) (Object) this;
+
 		if (tntsulfurcubes$getFuse() > 0) cir.setReturnValue(InteractionResult.PASS);
 		if (sulfurCube.getItemBySlot(EquipmentSlot.BODY).is(Items.TNT)) {
 			ItemStack held = player.getItemInHand(hand);
@@ -88,6 +92,11 @@ public class SulfurCubeMixin implements Ignitable {
 				if (held.is(Items.FLINT_AND_STEEL)) {
 					sulfurCube.level().playSound(player, sulfurCube.getX(), sulfurCube.getY(), sulfurCube.getZ(), SoundEvents.FLINTANDSTEEL_USE, sulfurCube.getSoundSource(), 1.0F, sulfurCube.getRandom().nextFloat() * 0.4F + 0.8F);
 					if (!sulfurCube.level().isClientSide()) {
+						if (!(Boolean)((ServerLevel)sulfurCube.level()).getGameRules().get(GameRules.TNT_EXPLODES)) {
+							player.sendOverlayMessage(Component.translatable("block.minecraft.tnt.disabled"));
+							cir.setReturnValue(InteractionResult.PASS);
+							return;
+						}
 						tntsulfurcubes$setIgnited(true);
 						held.hurtAndBreak(1, player, hand.asEquipmentSlot());
 					}
@@ -98,6 +107,11 @@ public class SulfurCubeMixin implements Ignitable {
 				if (held.is(Items.FIRE_CHARGE)) {
 					sulfurCube.level().playSound(player, sulfurCube.getX(), sulfurCube.getY(), sulfurCube.getZ(), SoundEvents.FIRECHARGE_USE, sulfurCube.getSoundSource(), 1.0F, (sulfurCube.getRandom().nextFloat() - sulfurCube.getRandom().nextFloat()) * 0.2F + 1.0F);
 					if (!sulfurCube.level().isClientSide()) {
+						if (!(Boolean)((ServerLevel)sulfurCube.level()).getGameRules().get(GameRules.TNT_EXPLODES)) {
+							player.sendOverlayMessage(Component.translatable("block.minecraft.tnt.disabled"));
+							cir.setReturnValue(InteractionResult.PASS);
+							return;
+						}
 						tntsulfurcubes$setIgnited(true);
 						if (!player.getAbilities().instabuild) {
 							held.shrink(1);
