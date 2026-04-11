@@ -16,7 +16,7 @@ public class TNTSulfurCubes implements ModInitializer {
 			.buildAndRegister(Identifier.fromNamespaceAndPath(TNTSulfurCubes.MOD_ID, "explode_on_impact"));
 
 	public static final GameRule<Double> IMPACT_EXPLOSION_MIN_SPEED = GameRuleBuilder
-			.forDouble(0.7d)
+			.forDouble(0.8d)
 			.minValue(0d)
 			.category(GameRuleCategory.MOBS)
 			.buildAndRegister(Identifier.fromNamespaceAndPath(TNTSulfurCubes.MOD_ID, "impact_explosion_min_speed"));

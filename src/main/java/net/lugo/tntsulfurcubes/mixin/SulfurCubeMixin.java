@@ -1,7 +1,6 @@
 package net.lugo.tntsulfurcubes.mixin;
 
 import net.lugo.tntsulfurcubes.Ignitable;
-import net.lugo.tntsulfurcubes.TNTSulfurCubes;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -96,7 +95,7 @@ public class SulfurCubeMixin implements Ignitable {
 						if (gameRuleChecks(player, cir, sulfurCube)) return;
 						held.hurtAndBreak(1, player, hand.asEquipmentSlot());
 					}
-
+					tntsulfurcubes$setIgnited(true);
 					cir.setReturnValue(InteractionResult.SUCCESS);
 				}
 
@@ -109,6 +108,7 @@ public class SulfurCubeMixin implements Ignitable {
 						}
 					}
 
+					tntsulfurcubes$setIgnited(true);
 					cir.setReturnValue(InteractionResult.SUCCESS);
 				}
 			}
@@ -118,16 +118,11 @@ public class SulfurCubeMixin implements Ignitable {
 	@Unique
     private boolean gameRuleChecks(Player player, CallbackInfoReturnable<InteractionResult> cir, SulfurCube sulfurCube) {
 		GameRules gameRules = ((ServerLevel)sulfurCube.level()).getGameRules();
-		if (gameRules.get(TNTSulfurCubes.EXPLODE_ON_IMPACT)) {
-			player.sendOverlayMessage(Component.translatable("tntsulfurcubes.info.explode_on_impact_enabled"));
-			return true;
-		}
 		if (!gameRules.get(GameRules.TNT_EXPLODES)) {
 			player.sendOverlayMessage(Component.translatable("block.minecraft.tnt.disabled"));
 			cir.setReturnValue(InteractionResult.PASS);
 			return true;
 		}
-		tntsulfurcubes$setIgnited(true);
 		return false;
 	}
 }

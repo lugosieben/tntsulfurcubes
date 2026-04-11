@@ -32,21 +32,17 @@ public class AbstractCubeMobMixin {
         ServerLevel serverLevel = (ServerLevel) level;
         GameRules gameRules = serverLevel.getGameRules();
 
-        if (gameRules.get(TNTSulfurCubes.EXPLODE_ON_IMPACT)
+        if (gameRules.get(TNTSulfurCubes.EXPLODE_ON_IMPACT) && gameRules.get(GameRules.TNT_EXPLODES)
                 && sulfurCube.getItemBySlot(EquipmentSlot.BODY).is(Items.TNT)
                 && (sulfurCube.horizontalCollision || sulfurCube.verticalCollision || !level.noEntityCollision(sulfurCube, sulfurCube.getBoundingBox()))) {
             double speed = sulfurCube.getDeltaMovement().length();
             double minSpeed = Math.max(0d, gameRules.get(TNTSulfurCubes.IMPACT_EXPLOSION_MIN_SPEED));
-            if (speed < minSpeed) {
-                return;
-            }
-
-            if (gameRules.get(GameRules.TNT_EXPLODES)) {
+            if (speed > minSpeed) {
                 double impactPower = Math.max(0d, gameRules.get(TNTSulfurCubes.IMPACT_EXPLOSION_POWER)) * speed;
                 level.explode(sulfurCube, sulfurCube.getX(), sulfurCube.getY(), sulfurCube.getZ(), (float) impactPower, Level.ExplosionInteraction.TNT);
+                sulfurCube.discard();
+                return;
             }
-            sulfurCube.discard();
-            return;
         }
 
         Ignitable ignitable = (Ignitable) this;
