@@ -11,7 +11,7 @@ public class TNTSulfurCubes implements ModInitializer {
 	public static final String MOD_ID = "tntsulfurcubes";
 
 	public static final GameRule<Boolean> EXPLODE_ON_IMPACT = GameRuleBuilder
-			.forBoolean(false)
+			.forBoolean(true)
 			.category(GameRuleCategory.MOBS)
 			.buildAndRegister(Identifier.fromNamespaceAndPath(TNTSulfurCubes.MOD_ID, "explode_on_impact"));
 
