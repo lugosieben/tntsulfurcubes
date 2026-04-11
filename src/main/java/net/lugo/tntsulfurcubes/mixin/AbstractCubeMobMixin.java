@@ -19,6 +19,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class AbstractCubeMobMixin {
     @Inject(method = "tick", at = @At("TAIL"))
     private void tntennis$tick(CallbackInfo ci) {
+        //noinspection ConstantValue
         if (!((Object) this instanceof SulfurCube sulfurCube)) {
             return;
         }
