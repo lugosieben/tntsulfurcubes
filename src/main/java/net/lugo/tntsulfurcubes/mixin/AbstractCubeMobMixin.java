@@ -41,8 +41,8 @@ public class AbstractCubeMobMixin {
             }
 
             if (gameRules.get(GameRules.TNT_EXPLODES)) {
-                float impactPower = (float) Math.max(0d, gameRules.get(TNTSulfurCubes.IMPACT_EXPLOSION_POWER));
-                level.explode(sulfurCube, sulfurCube.getX(), sulfurCube.getY(), sulfurCube.getZ(), impactPower, Level.ExplosionInteraction.TNT);
+                double impactPower = Math.max(0d, gameRules.get(TNTSulfurCubes.IMPACT_EXPLOSION_POWER)) * speed;
+                level.explode(sulfurCube, sulfurCube.getX(), sulfurCube.getY(), sulfurCube.getZ(), (float) impactPower, Level.ExplosionInteraction.TNT);
             }
             sulfurCube.discard();
             return;
