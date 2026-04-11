@@ -1,6 +1,7 @@
 package net.lugo.tntsulfurcubes.mixin;
 
 import net.lugo.tntsulfurcubes.Ignitable;
+import net.lugo.tntsulfurcubes.TNTSulfurCubes;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -92,12 +93,7 @@ public class SulfurCubeMixin implements Ignitable {
 				if (held.is(Items.FLINT_AND_STEEL)) {
 					sulfurCube.level().playSound(player, sulfurCube.getX(), sulfurCube.getY(), sulfurCube.getZ(), SoundEvents.FLINTANDSTEEL_USE, sulfurCube.getSoundSource(), 1.0F, sulfurCube.getRandom().nextFloat() * 0.4F + 0.8F);
 					if (!sulfurCube.level().isClientSide()) {
-						if (!(Boolean)((ServerLevel)sulfurCube.level()).getGameRules().get(GameRules.TNT_EXPLODES)) {
-							player.sendOverlayMessage(Component.translatable("block.minecraft.tnt.disabled"));
-							cir.setReturnValue(InteractionResult.PASS);
-							return;
-						}
-						tntsulfurcubes$setIgnited(true);
+						if (gameRuleChecks(player, cir, sulfurCube)) return;
 						held.hurtAndBreak(1, player, hand.asEquipmentSlot());
 					}
 
@@ -107,12 +103,7 @@ public class SulfurCubeMixin implements Ignitable {
 				if (held.is(Items.FIRE_CHARGE)) {
 					sulfurCube.level().playSound(player, sulfurCube.getX(), sulfurCube.getY(), sulfurCube.getZ(), SoundEvents.FIRECHARGE_USE, sulfurCube.getSoundSource(), 1.0F, (sulfurCube.getRandom().nextFloat() - sulfurCube.getRandom().nextFloat()) * 0.2F + 1.0F);
 					if (!sulfurCube.level().isClientSide()) {
-						if (!(Boolean)((ServerLevel)sulfurCube.level()).getGameRules().get(GameRules.TNT_EXPLODES)) {
-							player.sendOverlayMessage(Component.translatable("block.minecraft.tnt.disabled"));
-							cir.setReturnValue(InteractionResult.PASS);
-							return;
-						}
-						tntsulfurcubes$setIgnited(true);
+						if (gameRuleChecks(player, cir, sulfurCube)) return;
 						if (!player.getAbilities().instabuild) {
 							held.shrink(1);
 						}
@@ -122,5 +113,21 @@ public class SulfurCubeMixin implements Ignitable {
 				}
 			}
 		}
+	}
+
+	@Unique
+    private boolean gameRuleChecks(Player player, CallbackInfoReturnable<InteractionResult> cir, SulfurCube sulfurCube) {
+		GameRules gameRules = ((ServerLevel)sulfurCube.level()).getGameRules();
+		if (gameRules.get(TNTSulfurCubes.EXPLODE_ON_IMPACT)) {
+			player.sendOverlayMessage(Component.translatable("tntsulfurcubes.info.explode_on_impact_enabled"));
+			return true;
+		}
+		if (!gameRules.get(GameRules.TNT_EXPLODES)) {
+			player.sendOverlayMessage(Component.translatable("block.minecraft.tnt.disabled"));
+			cir.setReturnValue(InteractionResult.PASS);
+			return true;
+		}
+		tntsulfurcubes$setIgnited(true);
+		return false;
 	}
 }

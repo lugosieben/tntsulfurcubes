@@ -12,6 +12,8 @@ repositories {
 dependencies {
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
 	implementation "net.fabricmc:fabric-loader:${project.loader_version}"
+
+	implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 }
 
 def replaceProperties = [
@@ -19,7 +21,8 @@ def replaceProperties = [
 		java_version: java_version,
 		loader_version: loader_version,
 		minecraft_version: minecraft_version,
-		minecraft_version_compatible: minecraft_version_compatible
+		minecraft_version_compatible: minecraft_version_compatible,
+		fabric_version: fabric_version,
 ]
 
 processResources {

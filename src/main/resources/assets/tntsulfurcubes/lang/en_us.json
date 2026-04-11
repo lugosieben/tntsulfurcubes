@@ -1,0 +1,7 @@
+{
+  "tntsulfurcubes.explode_on_impact": "Sulfur Cubes explode on Impact",
+  "gamerule.tntsulfurcubes.explode_on_impact": "Instead of being able to be lighted and then explode, Sulfur Cubes will explode immediately on impact",
+  "gamerule.tntsulfurcubes.impact_explosion_min_speed": "Minimum speed for impact explosion",
+  "gamerule.tntsulfurcubes.impact_explosion_power": "Impact explosion power",
+  "tntsulfurcubes.info.explode_on_impact_enabled": "TNT Sulfur Cubes explode on impact instead because of gamerule"
+}
